@@ -1,0 +1,31 @@
+body {
+    background-color: #222222;
+    color: white;
+}
+
+
+
+p#yellowParagraph{ 
+    color: yellow;
+    font-family: "comic sans ms";
+    font-size: 18px;
+
+
+}
+
+h1{
+
+    font-size:64px; 
+    color: white; 
+    background-color: blue;
+     margin:10; 
+     padding:10px; 
+     text-align: center;
+}
+
+
+.square{
+    fill:indigo;
+    width:100px;
+    height:100px;
+}
