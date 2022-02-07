@@ -4,23 +4,15 @@ body {
 }
 
 
-
-p#yellowParagraph{
-    color: yellow;
-    font-family: "comic sans ms";
-    font-size: 18px;
-
-
-}
-
 h2{
 
     font-size:64px; 
-    color: black; 
+    color: whitesmoke; 
     background-color: blue;
      margin:10; 
      padding:10px; 
      text-align: center;
+     width:75%;
 }
 
 
