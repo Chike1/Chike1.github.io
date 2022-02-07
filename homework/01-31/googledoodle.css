@@ -1,5 +1,5 @@
-head {
-    background-color: "white";
+body {
+    background-color: #ffffff;
     color: white;
 }
 
@@ -13,10 +13,10 @@ p#yellowParagraph{
 
 }
 
-h1{
+h2{
 
     font-size:64px; 
-    color: white; 
+    color: black; 
     background-color: blue;
      margin:10; 
      padding:10px; 
