@@ -6,19 +6,39 @@
         <title>Javascript Assignment</title>
       </head>
 
+
       <body>
-        <h1 id = "welcome"></h1>
-        
-    <script>
-        var user = {
-          name: "Chike",
-          color: "red",
-          age: 30,
-          favoriteTeam: "Arsenal"
-        };
+          <h1 id="welcome"> Welcome Chike!</h1>
+          <h2 id="chike">Javascript</h2>
+         
+         <h3> <button type="button" 
+          onclick="document.getElementById('welcome').style.color = 'red'">
+          Enter!</button>
+        </h3>
+
+          <button type="button" 
+          onclick="document.getElementById('chike').style.color = 'blue'">
+          Click!</button>
+       
+          <h4> <a href="/index.html">Back to Home</a> </h4>
+
+        <script>
+
+                var user = {
+                name: "Chike",
+                color: "red",
+                age: 30,
+                favoriteTeam: "Arsenal"
+                 };
+
+            document.getElementById("welcome").innerHTML = "Welcome to Javascript Assignment " + user.name + "!";
+
+           
+        </script>
 
 
+      </body>
 
-    </script>
+    <html>
 
-</html>
+       
