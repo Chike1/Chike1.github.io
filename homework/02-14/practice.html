@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>D3 Assignment!</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+
+      .big {
+        font-size: 80px;
+      }
+      .small {
+        font-size: 40px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1 id="title">D3 Assignment!</h1>
+    <h2 id="chike">Why so Confusing?!</h2>
+    <h3> <a href="/index.html">Back to Home</a> </h3>
+
+    <svg>
+    </svg>
+
+    <script>
+
+      d3.select("#title")
+        .attr("class", "big")
+        .style("color", "indigo");
+
+      d3.select("#chike")
+        .attr("class", "small")
+        .style("color", "red");
+      
+        var data = [ 20, 30, 35, 45];
+
+        var data2 = [20, 30, 35, 45, 50, 60];
+
+         
+       var svgHolder = d3.select("body")
+        .append("svg")
+         .attr("width", 1000)
+         .attr("height", 1000);
+       
+  
+     var rectangles = svgHolder
+         .selectAll("rect")
+         .data(data)
+         .enter()
+         .append("rect");
+ 
+    
+     var rectangleAttributes = rectangles
+         .transition().duration (2000)
+         .attr("x", function (d) { return  d * 10; })
+         .attr("y", function (d) { return d * 10; })
+         .attr("height", function (d) { return d; })
+         .attr("width", function (d) { return d; })
+         .attr('fill', function(d){
+   if (d <= 30){
+     return "blue";
+   }
+   
+           else{
+     return "red";
+   }
+
+   rectangles.exit()
+          .transition().duration(2000)
+          .attr("x", function (d) { return  d * 10; })
+        .attr("y", function (d) { return d * 10; })
+        .attr("height", function (d) { return d; })
+          .attr("width", function (d) { return d; })
+         .attr("fill", "red")
+        .remove();
+
+ })
+      
+
+    
+         
+
+    </script>
+
+  </body>
+</html>
