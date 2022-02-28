@@ -1,9 +1,9 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>D3 Assignment!</title>
+    <title>D3 Basics</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
 
@@ -13,15 +13,18 @@
       .small {
         font-size: 40px;
       }
+
     </style>
   </head>
   <body>
 
-    <h1 id="title">D3 Assignment!</h1>
+    <h1 id="title">Welcome!</h1>
     <h2 id="chike">Why so Confusing?!</h2>
     <h3> <a href="/index.html">Back to Home</a> </h3>
 
-    <svg>
+
+    <svg id="rectCanvas" width = "2000" height = "2000">
+      
     </svg>
 
     <script>
@@ -30,57 +33,64 @@
         .attr("class", "big")
         .style("color", "indigo");
 
-      d3.select("#chike")
+        d3.select("#chike")
         .attr("class", "small")
         .style("color", "red");
-      
+
         var data = [ 20, 30, 35, 45];
 
         var data2 = [20, 30, 35, 45, 50, 60];
+      
+        
+      function drawRect(dataArray) {
 
-         
-       var svgHolder = d3.select("body")
-        .append("svg")
-         .attr("width", 1000)
-         .attr("height", 1000);
-       
-  
-     var rectangles = svgHolder
-         .selectAll("rect")
-         .data(data)
-         .enter()
-         .append("rect");
- 
-    
-     var rectangleAttributes = rectangles
+        // Data Binding
+        var rectangles = d3.select("#rectCanvas")
+          .selectAll("rect")
+          .data(dataArray, function(currentDataPoint) {
+            return currentDataPoint;
+          });
+
+        // Update
+        rectangles 
          .transition().duration (2000)
          .attr("x", function (d) { return  d * 10; })
          .attr("y", function (d) { return d * 10; })
          .attr("height", function (d) { return d; })
          .attr("width", function (d) { return d; })
          .attr('fill', function(d){
-   if (d <= 30){
-     return "blue";
-   }
+          if (d <= 30){
+         return "blue";
+             }
    
            else{
      return "red";
-   }
+      }
+ 
+          
+          });
 
-   rectangles.exit()
-          .transition().duration(2000)
+        // Enter
+        rectangles.enter().append("rect") 
           .attr("x", function (d) { return  d * 10; })
-        .attr("y", function (d) { return d * 10; })
-        .attr("height", function (d) { return d; })
-          .attr("width", function (d) { return d; })
-         .attr("fill", "red")
-        .remove();
+         .attr("y", function (d) { return d * 10; })
+         .attr("height", function (d) { return d; })
+         .attr("width", function (d) { return d; })
+  
 
- })
-      
+        // Exit
+        rectangles.exit()
+          .transition().duration(1000)
+          .attr("x", function (d) { return  d * 10; })
+         .attr("y", function (d) { return d * 10; })
+         .attr("height", function (d) { return d; })
+         .attr("width", function (d) { return d; })  
+          .remove();
 
-    
-         
+      }
+
+      drawRect(data);
+     
 
     </script>
 
