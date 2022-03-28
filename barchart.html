@@ -117,9 +117,14 @@
               .attr("x", function(d, i) {
                 return x(i + 1);
               })
-              .attr("fill", function(d) {
-    return "rgb("+ Math.round(d * 8) + ",0," + Math.round(d * 10) + ")"; //Change the color of the bar depending on the value
-  })
+              .attr("fill", function(barHeight) {
+                 if (barHeight > 70) {
+                  return "red";
+                 } else if (barHeight < 70) {
+                 return "orange";
+                        }
+                return "yellow";
+                 })
               .call(zeroState)
               .transition().duration(frequency / 2)
                 .call(barPosition);
