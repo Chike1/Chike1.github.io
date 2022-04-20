@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Brazil Map</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+    <style>
+
+      body {
+        margin: 0;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <svg id="viz">
+      <rect id="ocean" fill="cornflowerblue" />
+      <g id="map"></g>
+    </svg>
+
+    <script>
+
+      var width = window.innerWidth;
+      var height = window.innerHeight;
+
+      var svg = d3.select("#viz")
+        .attr("width", width)
+        .attr("height", height);
+
+      svg.select("#ocean")
+        .attr("width", width)
+        .attr("height", height);
+
+      var map = svg.select("#map");
+
+      d3.json("./world-alpha3.json")
+        .then(function(world) {
+
+          console.log(world);
+          var geoJSON = topojson.feature(world, world.objects.countries);
+
+          geoJSON.features = geoJSON.features.filter(function(d) {
+            return d.id === "BRA";
+          });
+
+          console.log(geoJSON);
+
+          var proj = d3.geoMercator()
+            .fitSize([width, height], geoJSON);
+
+          var path = d3.geoPath()
+            .projection(proj);
+
+          var countries = map.selectAll("path")
+            .data(geoJSON.features);
+
+          countries.enter().append("path")
+            .attr("d", path)
+            .attr("fill", "green")
+            .attr("stroke-width", 1)
+            .attr("stroke", "black");
+
+          var points = [
+            {"name": "São Paulo", "coords": [-46.6396, -23.5558]},
+            {"name": "Rio de Janeiro", "coords": [-43.1729, -22.9068]},
+            {"name": "Belo Horizonte", "coords": [-43.9387, -19.9191]}
+
+          ];
+
+          var dots = map.selectAll("circle")
+            .data(points);
+
+          dots.enter().append("circle")
+            .attr("r", 10)
+            .attr("fill", "red")
+            .attr("transform", function(d) {
+              return "translate(" + proj(d.coords) + ")";
+            });
+
+            var dotstext = map.selectAll("text")
+            .data(points);
+
+          dotstext.enter().append("text")
+            .attr("font-family", "serif")
+           .attr("font-size", "10px")
+            .attr("transform", function(d) {
+  
+              return "translate(" + proj(d.coords) + ")";
+            });
+
+          var zoom = d3.zoom()
+            .translateExtent([
+              [0, 0],
+              [width, height]
+            ])
+            .scaleExtent([1, 16])
+            .on("zoom", zoomed);
+
+          function zoomed(event) {
+            map.attr("transform", event.transform);
+          }
+
+          svg.call(zoom);
+
+        });
+
+    </script>
+  </body>
+</html>

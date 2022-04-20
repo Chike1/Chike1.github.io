@@ -7,6 +7,7 @@
 
   </head>
   <body>
+    
     <div id="banner">
         <h1>Brazil Rent Industry Insight</h1>
         <p>
@@ -22,11 +23,37 @@
             <div class="section">
              <p>Curious about the rental industry in developing nations, this analysis looks into the rental industry in Brazil. I take a look at the industry by regions, and how various attributes interact to determine the cost of rental in Brazil.</p>
 
+              </div>
+            <div class = "section">
+
+              <svg id="chart1">
+                <g id="shapes"></g>
+                <g id="x"></g>
+                <g id="y"></g>
+                <g id="legend"></g>
+                <g id="labels">
+                  <text transform="translate(100,0)" x=350 y=50 font-size="24px">
+                    Type of Apartments available in Brazil
+                  </text>
+                  <text transform= "rotate(-90)" y = margin.left x = "(margin.top  + 400)" dy= 1em font-size = "20px"
+                  text-anchor = "end" >
+                    Quantity
+                  </text>
+                    <text x= 800  y = 800 text-anchor = "end" font-size="20px" >
+                    Apartment Style (by Number of rooms)</text>
+                </g>
+               
+          
+
+              </svg>
+            </div>
+
+             
             </div>
              <div class="section">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend egestas aliquet. Suspendisse non felis sed felis pellentesque convallis quis eget arcu. Aliquam eget dolor commodo eros rhoncus egestas. Nullam dapibus eget diam nec accumsan. Fusce tincidunt augue a libero semper vulputate. Fusce vel metus sit amet dolor pulvinar varius sit amet vehicula nibh. Sed ultricies interdum tellus, in varius augue eleifend vel.</p>
  
-             <svg id="chart1"></svg>
+           
 
             </div>
    
@@ -38,13 +65,16 @@
 
                     
             
-            <div id="tooltip">
-             value: $<span></span>
+            <div id="Tooltip">
+             Quantity: <span class = "count"></span>
+             Number of Bedrooms: <span class = "rooms"></span>
+
              </div>
 
-
+            
 
              <script src="./banner.js"></script>
             <script src="./chart1.js"></script>
+
   </body>
 </html>

@@ -1,5 +1,5 @@
 body {
-    font-family: "Comic Sans MS";
+    font-family: "Sans Serif MS";
     margin: 0;
   }
   
@@ -16,6 +16,8 @@ body {
       display: flex;
       flex-direction:row;
       padding: 50px;
+      
+      
 
   }
 
@@ -24,11 +26,15 @@ body {
   }
 
   .section svg {
-      border: 1px solid red;
+      border: 2px solid red;
       flex: 2;
-      height: 300px;
+      height: 800px;
+      width: 800px;
+      background-color: powderblue;
       margin: 25px;
   }
+
+  
   
   @media (max-width: 600px) {
       .section {
@@ -38,7 +44,7 @@ body {
           flex: none;
       }
   }
-         #tooltip {
+         #Tooltip {
           background-color: #eeee;
           border: 1px solid black;
             display: none;
