@@ -3,7 +3,7 @@
 
 var image = 1;
 var maxImage = 12;
-      var imageFrequency = 1 * 1000; // two seconds
+      var imageFrequency = 0.0002 * 1000; // two seconds
 
       setTimeout(function() {
 

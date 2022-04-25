@@ -1,33 +1,9 @@
-//d3.select ("#chart1")
-//.on("mousemove", function (event) {
-    
-    
-  //  d3.select("#Tooltip")
-    //.style("display", "block")
-    //.style("top", event.pageY + 10 + "px")
-    //.style("left", event.pageX + 10 + "px")
-    //.html("Heres some custom tooltip text!");
-
-
-//})
-
-//.on("mouseout", function() {
-
-  // d3.select("#Tooltip")
-   //  .style("display", "none");
-//});
-
-
-
 
   // Create a Tooltip
   var Tooltip = d3.select("#tooltip")
 
   .style("border-radius", "5px")
   .style("padding", "5px")
-
-
- 
 
 
     d3.csv("houses_to_rent.csv")
@@ -68,8 +44,7 @@
             console.log(roomData);
 
 
-              
-
+           
             // DO YOUR BAR CHART HERE
 
             var frequency = 2 * 1000; // three seconds
@@ -79,26 +54,28 @@
             var Maxcount = d3.max(roomData, function(d) {
                 return d.count;
             });
-            
+        
             var width = window.innerWidth - 150 ;
             var height = window.innerHeight;
             var margin = {
-              top: 20,
-              right: 20,
+              top: 50,
+              right: 50,
               bottom: 50,
               left: 50
             };
             var chartWidth = width - margin.left - margin.right;
             var chartHeight = height - margin.top - margin.bottom;
       
+
+
+           
+  
+            
             var svg = d3.select("#chart1")
         
     
              .attr("width", width)
              .attr("height", height);
-
-              
-             
 
             // Three function that change the tooltip when user hover / move / leave a cell
             var mouseover = function() {
@@ -119,6 +96,9 @@
 
                   Tooltip.select(".count").html(d.count)
                   Tooltip.select(".rooms").html(d.rooms)
+                  
+                  
+                  
 
               }
 
@@ -145,8 +125,9 @@
             .range([0, chartHeight]);
 
             var y = d3.scaleLinear()
-            .domain([0, Maxcount])
-            .range([margin.top + chartHeight, margin.top]);
+            .domain([0, Maxcount] )
+            //.range([margin.top + chartHeight, margin.top]);
+            .range([chartHeight + margin.top, margin.top]);
 
             
             
@@ -157,20 +138,7 @@
             .append("text")
             
              
-            
-          // .attr("transform", "rotate(-90)")
-           //.attr("y", 0 - margin.left)
-           //.attr("x", 0 - (height/2))
-           //.attr("dy", "1em")
-        
-           //.attr("text-anchor", "middle")
-           //.attr("stroke", "black")
-           //.attr("font-size", "15px")
-           //.attr("fill", "black")
-           //.text("Quantity");
-
-            
-            
+    
             
             
             var xAxis = d3.axisBottom(x);
@@ -179,21 +147,7 @@
             .attr("transform", "translate(0," + (chartHeight + margin.top) + ")")
             .call(xAxis) 
             .append("text")
-            
-           // .attr("x", (width / 2 + margin.right) )
-           //.attr("y",  height + margin.top)
-            //.attr("transform", "translate(0, " + (width) + " ," + (chartHeight + margin.top) + ")")
-           // .attr("y", height - 6)
-
-
-           // .attr("x", width/2)
-            //.attr("text-anchor", "middle")
-            //.attr("stroke", "black")
-            ///.attr("font-size", "15px")
-            //.attr("fill", "black")
-           //  .text("Style of building (by Number of rooms)");
-
-
+    
 
 
 
@@ -235,15 +189,21 @@
             })
             .style("stroke", "none")
             .style ("opacity", "0.5")
+            
+           
+            
             .attr("fill", function(d) {
-                if (d.count > 500) {
-                    return "red";
+               if (d.count === Maxcount) {
+                   return "green";
                 } else if (d.count > 200) {
                 return "orange";
                 }
                 return "yellow";
+                
                 })
-            .call(zeroState)
+           
+           
+                .call(zeroState)
                 .call(barPosition)
                 .on("mouseover", mouseover)
                 .on("mousemove", mousemove)
@@ -265,7 +225,20 @@
       
       
         }
+       
 
-        updateBarChart("Rio de Janeiro");
+        updateBarChart("Porto Alegre");
 
+
+
+    d3.selectAll(".city-button")
+    .on("click", function() {
+      updateBarChart(this.id);
     });
+        
+    
+    });
+    
+
+
+  

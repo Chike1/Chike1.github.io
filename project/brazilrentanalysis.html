@@ -1,77 +1,350 @@
+
 <html>
   <head>
     <meta charset="utf-8" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/d3-axis.v1.min.js"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+
+
     <title>Brazil Rent Industry Insight</title>
     <link rel="stylesheet" href="./styles.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
   </head>
   <body>
-    
-    <div id="banner">
+
+    <div 
+      id="banner">
         <h1>Brazil Rent Industry Insight</h1>
         <p>
-         This is an analysis of the Brazilian rental industry. This analysis aims to look at the Brazilian rental industry by region, location, and other attrbutes.
+         This is an analysis of the Brazilian rental industry. This analysis aims to look at the Brazilian rental industry by region.
 
         </p>
         <p>
-          Author: Chike Nwobi
+        <b>  Author: Chike Nwobi</b>
         </p>
-      </div>
+     
+     </div>
 
+     <div width="100%" height = "100%" style="text-align: center;">
+     
+     
+      
+      
+      <h1 style="font-size:70px;background-color: red;"  >The 7 million problem</h1> 
 
+    </div>
             <div class="section">
-             <p>Curious about the rental industry in developing nations, this analysis looks into the rental industry in Brazil. I take a look at the industry by regions, and how various attributes interact to determine the cost of rental in Brazil.</p>
 
+
+
+              <h1 
+                style="font-size: 90px"
+               
+              >F</h1>
+
+              <p>rom the lush Amazon rainforest to the futuristic skyscrapers topped by helipads in São Paulo, Brazil is a study in contrasts. The country is rich in land, with a landmass slightly larger than that of the lower 48 U.S. states; it is the largest country in South America and the fifth largest in the world.
+                Currently 80 percent of Brazil’s 213 million residents live in urban areas. The City of São Paulo, with a population of 10 million, is the largest city in Brazil and one of the most densely populated; its metropolitan area encompasses 16 million people. The City of Rio de Janeiro is the country’s second largest city with 6 million inhabitants and a metropolitan population of 10 million.
+                Brazil has experienced staggering urbanization in the last century with 80% of Brazilians now living in urban areas. Urbanization in Brazil unfolded so rapidly during the 20th century, that by 1950 it attained a level comparable to that of Asia and Africa in 2000
+              </p>
               </div>
+
+
+         
+            <div class="section3">
+              
+             <h1>Brazil</h1>
+
+             <dl>
+               <dt>Population</dt>
+               <ul>
+               <li>212.6 million (2020)</li>
+               
+             </ul> 
+              <dt>Total Area</dt>
+               <ul>
+               <li>3,287,956 square miles</li>
+               
+             </ul> 
+             
+             <dt>Longest country in the World</dt>
+               <ul>
+               <li>2731 miles from North to South</li>
+               
+             </ul> 
+             <dt>5th largest country in the World</dt>
+               
+            </dl>
+            <h1>Belo Horizonte</h1>
+
+             <dl>
+               <dt>Population</dt>
+               <ul>
+               <li> 2.722 million (2020)</li>
+               
+             </ul> 
+              <dt>Total Area</dt>
+               <ul>
+               <li>127.8  square miles</li>
+               
+             </ul> 
+             
+             <dt>6th largest city in Brazil</dt>
+          
+
+             <dl>3rd most populous metropolitan area in Brazil</dl>
+
+             <dl>Terrain: Hills and Mountains</dl>
+
+               
+            </dl>
+
+            <h1>Campinas</h1>
+
+             <dl>
+               <dt>Population</dt>
+               <ul>
+               <li>212.6 million (2020)</li>
+               
+             </ul> 
+              <dt>Total Area</dt>
+               <ul>
+               <li>3,287,956 square miles</li>
+               
+             
+               
+            </dl>
+
+            <h1>Porto Alegre</h1>
+
+             <dl>
+               <dt>Population</dt>
+               <ul>
+               <li> 1.5 million (2020)</li>
+               
+             </ul> 
+              <dt>Total Area</dt>
+               <ul>
+               <li>191.83 square miles</li>
+               
+             </ul> 
+             
+             <dt>12th most populous city in Brazil</dt>
+               
+               
+              
+             <dl>Terrain : Coastal City</dl>
+               
+            </dl>
+            <h1>Rio de Janeiro</h1>
+
+             <dl>
+               <dt>Population</dt>
+               <ul>
+               <li>6.75 million (2020)</li>
+               
+             </ul> 
+              <dt>Total Area</dt>
+               <ul>
+               <li>463 square miles</li>
+               
+             </ul> 
+             
+             <dl>2nd most populous city in Brazil</dl>
+             
+             <dl>Terrain: Coastal City</dl>
+            </dl>
+           </div>
+
+           
+           <div id="Tooltip2">
+            Quantity: <span class = "count"></span>
+            Number of Bedrooms: <span class = "rooms"></span>
+
+            </div>
+           <div class="section2">
+            <svg id="chart2">
+              
+            <rect id="ocean" fill="lightblue" />
+           <g id="map"></g></svg>
+            <script>
+
+                      var width = window.innerWidth;
+                      var height = window.innerHeight;
+
+                      var svg = d3.select("#chart2")
+                      .attr("width", width)
+                      .attr("height", height);
+
+                      svg.select("#ocean")
+                      .attr("width", width)
+                      .attr("height", height);
+
+                      var map = svg.select("#map");
+
+          d3.json("./world-alpha3.json")
+         .then(function(world) {
+
+          console.log(world);
+          var geoJSON = topojson.feature(world, world.objects.countries);
+
+          geoJSON.features = geoJSON.features.filter(function(d) {
+            return d.id === "BRA";
+          });
+
+          console.log(geoJSON);
+
+          var proj = d3.geoMercator()
+            .fitSize([width, height], geoJSON);
+           
+
+          var path = d3.geoPath()
+            .projection(proj);
+
+
+            
+          var countries = map.selectAll("path")
+            .data(geoJSON.features);
+
+          countries.enter().append("path")
+            .attr("d", path)
+            .attr("fill", "purple")
+            .attr("stroke-width", 1)
+            .attr("stroke", "black");
+           
+
+          var points = [
+          {"name": "Belo Horizonte", "coords": [-43.9387, -19.9191]},
+          {"name": "Rio de Janeiro", "coords": [-43.1729, -22.9068]},
+          {"name": "São Paulo", "coords": [-46.6396, -23.5558]}
+           
+           
+          ];
+
+          var dots = map.selectAll("circle")
+            .data(points);
+
+          dots.enter().append("circle")
+            .attr("r", 10)
+            .attr("fill", "red")
+            .attr("transform", function(d) {
+              return "translate(" + proj(d.coords) + ")";
+            });
+
+            var dotstext = map.selectAll("text")
+            .data(points)
+
+          
+          .enter()
+          .append("text")
+          .attr("font-family", "arial")
+          .attr("font-size", "17px")
+           .style ("fill", "white")
+           .attr("dy", -15)
+           .attr ("text-anchor", "middle")
+          .text (function(d) {return d.name;})
+       
+          .attr("transform", function(d) {
+  
+          return "translate(" + proj(d.coords) + ")";
+          });
+
+
+          
+          var zoom = d3.zoom()
+            .translateExtent([
+              [0, 0],
+              [width, height]
+            ])
+            .scaleExtent([1, 1.5])
+            .on("zoom", zoomed);
+
+          function zoomed(event) {
+            map.attr("transform", event.transform);
+          }
+
+          svg.call(zoom);
+
+        });
+
+
+
+
+
+            </script>
+<p>The Residential real-estate Market in Brazil is expected to register a CAGR of more than 6% during the forecast period (2022 - 2027). 
+
+  The pandemic has slowed the recovery of Brazil's property market, with real house prices in Sao Paulo decreasing 5.51 percent in the year to Q3 2021, following a 0.21% increase the previous year. After the recessionary period of 2020 caused by the impacts of the Covid-19, the real estate market in Brazil has improved significantly, overcoming the economic downturn notably in the residential sector.
+  Sao Paulo and Rio de Janeiro, the two biggest cities in Brazil, with populations numbering approximately 11 million and 6 million respectively, have, in particular, captivated international travelers with increasing prosperity and abundant cultural amenities. With more perceived opportunities and advantages in urban areas, Brazilians themselves have also flocked to these two metropolises in search of better lives with 80 percent of Brazilians now living in urban areas. While these ascending cities seem to have garnered attention for all the right reasons, they  also pose considerable housing problems.
+  Overall, Brazil has a housing deficit of 7 million units and 20 percent of its total population lives in inadequate housing.
+  </p>
+
+
+
+  <h2 style="font-size:20px; text-align: center; color: slateblue;" >Below is a brief overview of the current available housing in certain Brazilian cities</h2>
+</div>
+
+
+
+
+            <div class="city-buttons">
+              
+              <button class="city-button" id="Belo Horizonte">Belo Horizonte</button>
+              <button class="city-button" id="Campinas">Campinas</button>
+              <button class="city-button" id="Porto Alegre">Porto Alegre</button>
+              <button class="city-button" id="Rio de Janeiro">Rio de Janeiro</button>
+              
+              
+              
+
+            </div>
+
             <div class = "section">
 
               <svg id="chart1">
+                <defs>
+                  <linearGradient id="colorGradient">
+                      
+                  </linearGradient>
+              </defs>
                 <g id="shapes"></g>
                 <g id="x"></g>
                 <g id="y"></g>
                 <g id="legend"></g>
+                <g id="scale">
+                  <rect id="scaleRect" fill="url(#colorGradient)" />
+                  <g id="scaleAxis"></g>
+                </g>
                 <g id="labels">
-                  <text transform="translate(100,0)" x=350 y=50 font-size="24px">
-                    Type of Apartments available in Brazil
+                  <text transform="translate(100,0)" x=350 y=30 font-size="24px">
+                    Type of Apartments available in Brazil (2020)
                   </text>
-                  <text transform= "rotate(-90)" y = margin.left x = "(margin.top  + 400)" dy= 1em font-size = "20px"
-                  text-anchor = "end" >
+                  <text transform= "rotate(-90)" y = "margin.left + 1000" x = -400 dy= 1em font-size = "20px"
+                  text-anchor = "middle" >
                     Quantity
                   </text>
-                    <text x= 800  y = 800 text-anchor = "end" font-size="20px" >
+                    <text x= 800  y = 750 text-anchor = "end" font-size="20px" >
                     Apartment Style (by Number of rooms)</text>
                 </g>
-               
-          
+
+
 
               </svg>
             </div>
 
-             
-            </div>
-             <div class="section">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend egestas aliquet. Suspendisse non felis sed felis pellentesque convallis quis eget arcu. Aliquam eget dolor commodo eros rhoncus egestas. Nullam dapibus eget diam nec accumsan. Fusce tincidunt augue a libero semper vulputate. Fusce vel metus sit amet dolor pulvinar varius sit amet vehicula nibh. Sed ultricies interdum tellus, in varius augue eleifend vel.</p>
- 
+
            
 
-            </div>
-   
-   
-            <div class="section">
-             <svg id="chart2"></svg>
-             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend egestas aliquet. Suspendisse non felis sed felis pellentesque convallis quis eget arcu. Aliquam eget dolor commodo eros rhoncus egestas. Nullam dapibus eget diam nec accumsan. Fusce tincidunt augue a libero semper vulputate. Fusce vel metus sit amet dolor pulvinar varius sit amet vehicula nibh. Sed ultricies interdum tellus, in varius augue eleifend vel.</p>
-            </div>
 
-                    
-            
+
             <div id="Tooltip">
              Quantity: <span class = "count"></span>
              Number of Bedrooms: <span class = "rooms"></span>
-
+             
              </div>
 
-            
+
 
              <script src="./banner.js"></script>
             <script src="./chart1.js"></script>
