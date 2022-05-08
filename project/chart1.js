@@ -84,6 +84,7 @@
                 d3.select(this)
                   .style("stroke", "black")
                   .style("opacity", 1)
+                  .style ("fill", "green")
                    
    
               }
@@ -107,7 +108,8 @@
                   .style("display", "none")
                 d3.select(this)
                   .style("stroke", "none")
-                 .style("opacity", 0.5)
+                 .style("opacity", 0.7)
+                 .style("fill", "orange")
               }
             
             var domainValues = d3.range(1, Maxrooms + 1);
@@ -188,19 +190,23 @@
                 return x(i + 1);
             })
             .style("stroke", "none")
-            .style ("opacity", "0.5")
+            .style ("opacity", "0.7")
             
-           
-            
-            .attr("fill", function(d) {
-               if (d.count === Maxcount) {
-                   return "green";
-                } else if (d.count > 200) {
-                return "orange";
-                }
-                return "yellow";
+          .attr("fill", "orange")
+         
                 
-                })
+
+
+
+
+              // if (d.count === Maxcount) {
+                //   return "green";
+                //} else if (d.count > 200) {
+                //return "orange";
+                //}
+                //return "yellow";
+                
+                //})
            
            
                 .call(zeroState)
@@ -227,7 +233,7 @@
         }
        
 
-        updateBarChart("Porto Alegre");
+        updateBarChart("Belo Horizonte");
 
 
 
